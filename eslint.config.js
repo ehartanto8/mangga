@@ -5,6 +5,8 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
   { ignores: ['dist'] },
+
+  // --- Frontend (React) ---
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -28,6 +30,22 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+    },
+  },
+
+  // --- Backend (Node/Express) ---
+  {
+    files: ['server/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.node, // <-- gives you process, __dirname, Buffer, etc.
+      },
+    },
+    rules: {
+      ...js.configs.recommended.rules,
+      // backend-specific rule tweaks can go here
     },
   },
 ]
